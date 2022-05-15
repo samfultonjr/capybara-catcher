@@ -67,6 +67,8 @@ class Orb {
     activationDate = 0;
 
     totalLife = 2000;
+    
+    adjustedLife = 0;
 
     startSize = 75;
     size = 0;
@@ -81,14 +83,16 @@ class Orb {
         this.y = (Math.random() * (height - 100));
         // rounds++;
         warp = JSON.parse((warp + 0.01).toFixed(2));
+        this.adjustedLife = this.adjustedLife * 0.98;
     }
 
 
     update () {
 
 
-        let lifeElapsed = (Date.now() - this.activationDate) > this.totalLife ? this.totalLife : (Date.now() - this.activationDate);
-        let percentLifeElapsed = lifeElapsed / this.totalLife;
+
+        let lifeElapsed = (Date.now() - this.activationDate) > this.adjustedLife ? this.adjustedLife : (Date.now() - this.activationDate);
+        let percentLifeElapsed = lifeElapsed / this.adjustedLife;
         this.size = this.startSize - (percentLifeElapsed * this.startSize);
         
         // this.size = this.size < 0 ? 0 : this.size;
@@ -189,9 +193,11 @@ const startGame = () => {
     
         for (const orbState of orbStates) {
             orbState.activate();
+            orbState.adjustedLife = orbState.totalLife;
         }
         warp = 0.1;
         launchButtonEl.hidden = true;
+        
     }, 2000);
 
 }
@@ -200,7 +206,7 @@ const startGame = () => {
 
 const endGame = () => {
     launchButtonEl.hidden = false;
-    setHighscore(warp);
+    setHighscore(JSON.parse((warp * 100).toFixed(0)));
     warp = 0.01;
     for (const orbState of orbStates) {
         orbState.active = false;
