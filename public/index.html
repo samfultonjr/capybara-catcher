@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Smash</title>
+    <title>Playbun - Minimalist Web Games</title>
 
+    <link rel="shortcut icon"  type="image/svg+xml" href="https://picbun.com/favicon.svg"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -27,6 +28,35 @@
 
         <div class="game-launch-button">PRESS TO LAUNCH</div>
     </div>
+
+
+
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyBaTCiNZKfx1yq0rHaP19vPBDcwb3A_Pv4",
+          authDomain: "playbun00.firebaseapp.com",
+          projectId: "playbun00",
+          storageBucket: "playbun00.appspot.com",
+          messagingSenderId: "418083743894",
+          appId: "1:418083743894:web:0cf122aebc73dcd6cffab7",
+          measurementId: "G-T5XPCRF1HT"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
 
     <script src="./script2.js"></script>
 </body>
