@@ -46,6 +46,8 @@ html, body {
     color: var(--white);
     margin: 0;
     padding: 0;
+    touch-action: none;
+    scroll-behavior: none;
 }
 
 

@@ -134,7 +134,12 @@ createCanvas(windowWidth, windowHeight - 100);
 
 
 
+let lastVacDraw = 0;
 
+
+let vacCircles = [
+
+];
 
 
 function draw() {
@@ -144,6 +149,26 @@ function draw() {
     warpHighscoreEl.textContent = `HIGHSCORE: ${getHighscore()}`
 
 
+    if((Date.now() - lastVacDraw) > 300) {
+        if(vacCircles.length > 25) {
+            vacCircles.shift();
+        }
+   
+        vacCircles.push({x: mouseX, y: mouseY});
+   
+    }
+
+    for (const vacCircle of vacCircles) {
+        r = random(255); // r is a random number between 0 - 255
+        g = random(100,200); // g is a random number betwen 100 - 200
+        b = random(100); // b is a random number between 0 - 100
+        a = random(200,255); // a is a random number between 200 - 255
+        
+        noStroke();
+        fill(r, g, b, a);
+        circle(vacCircle.x, vacCircle.y, 15);
+    }
+
     if(!playing) {
 
         
@@ -151,9 +176,16 @@ function draw() {
     
         fill('#b898f3');
 
+
+
         for (const orbState of orbStates) {
             orbState.update();
             circle(orbState.x, orbState.y, orbState.size);
+
+            if (dist(mouseX, mouseY, orbState.x, orbState.y) <= orbState.size) {
+                orbState.activate(); 
+            }
+            
             if(!orbState.active) {
                 endGame();
             }
@@ -273,7 +305,10 @@ function mouseClicked() {
     for (const orbState of orbStates) {
         if (dist(mouseX, mouseY, orbState.x, orbState.y) <= orbState.size) {
             orbState.activate(); 
-
+            // warp += 0.005;
+            // setTimeout(() => {
+            //     warp -= 0.005;
+            // }, 1000);
         }
     }
 
