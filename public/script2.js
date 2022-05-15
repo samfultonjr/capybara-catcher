@@ -75,15 +75,27 @@ class Orb {
 
     rounds = 0;
 
+
+    totalScalar = 30;
+        
+    angle = 0;	// initialize angle variable
+    scalar = 20;  // set the radius of circle
+    startX = 200;	// set the x-coordinate for the circle center
+    startY = 200;	// set the y-coordinate for the circle center
+
     activate () {
+        this.angle = 0;
+
+
         this.active = true;
         this.activationDate = Date.now();
         this.size = this.startSize;
-        this.x = Math.random() * width;
-        this.y = (Math.random() * (height - 100));
+        this.startX = Math.random() * width;
+        this.startY = (Math.random() * (height - 100));
         // rounds++;
         warp = JSON.parse((warp + 0.01).toFixed(2));
         this.adjustedLife = this.adjustedLife * 0.98;
+        // this.scalar = this.scalar * 0.98;
     }
 
 
@@ -98,6 +110,11 @@ class Orb {
         // this.size = this.size < 0 ? 0 : this.size;
 
         if(this.size === 0) this.active = false;
+
+
+        this.x = this.startX + this.scalar * cos(this.angle);
+        this.y = this.startY + this.scalar * sin(this.angle);
+        this.angle += 10;
     }
 
 }
@@ -142,6 +159,10 @@ let vacCircles = [
 ];
 
 
+
+let holdStart;
+
+
 function draw() {
     background(0);
 
@@ -149,7 +170,7 @@ function draw() {
     warpHighscoreEl.textContent = `HIGHSCORE: ${getHighscore()}`
 
 
-    if((Date.now() - lastVacDraw) > 300) {
+    if((Date.now() - lastVacDraw) > 300 && mouseIsPressed) {
         if(vacCircles.length > 25) {
             vacCircles.shift();
         }
@@ -174,13 +195,26 @@ function draw() {
         
     } else {
     
-        fill('#b898f3');
 
 
 
+        angleMode(DEGREES);
         for (const orbState of orbStates) {
             orbState.update();
-            circle(orbState.x, orbState.y, orbState.size);
+            // circle(orbState.x, orbState.y, orbState.size);
+            
+  
+            
+            let random = Math.random();
+            if(random > 0.6) {
+                fill('#b898f3');
+            } else {
+                fill('#7D6EE7');
+            }
+            
+            
+            ellipse(orbState.x, orbState.y, orbState.size);
+            
 
             if (dist(mouseX, mouseY, orbState.x, orbState.y) <= orbState.size) {
                 orbState.activate(); 
@@ -189,10 +223,19 @@ function draw() {
             if(!orbState.active) {
                 endGame();
             }
+
+            if(!mouseIsPressed) {
+                endGame();
+            }
         }
+
+        angleMode(RADIANS);
 
         
 
+
+
+    
 
 
 
@@ -216,9 +259,23 @@ function draw() {
 
 const startGame = () => {
 
-    launchButtonEl.textContent = 'QUICK! TAP ASTEROIDS!';
+    launchButtonEl.textContent = 'LETTING GO WILL END GAME';
+
     setTimeout(() => {
-        launchButtonEl.textContent = 'PRESS TO LAUNCH';
+        launchButtonEl.textContent = 'YOU ARE NOW A SPACE SNAKE';
+    }, 2000);
+
+
+    setTimeout(() => {
+        launchButtonEl.textContent = 'GRAB SPACE FOOD';
+    }, 3500);
+
+    setTimeout(() => {
+        launchButtonEl.textContent = 'OR DIE';
+    }, 5500);
+
+    setTimeout(() => {
+        launchButtonEl.textContent = 'HOLD TO LAUNCH';
         if(playing) return;
         playing = true;
         roundStartTime = Date.now();
@@ -230,7 +287,7 @@ const startGame = () => {
         warp = 0.1;
         launchButtonEl.hidden = true;
         
-    }, 2000);
+    }, 6000);
 
 }
 
@@ -248,7 +305,7 @@ const endGame = () => {
 
     launchButtonEl.textContent = 'GAME OVER';
     setTimeout(() => {
-        launchButtonEl.textContent = 'PRESS TO LAUNCH';
+        launchButtonEl.textContent = 'HOLD TO LAUNCH';
     }, 2000);
 }
 
@@ -282,7 +339,7 @@ let setHighscore = (newScore) => {
 gameContainerEl.addEventListener('click', () => {
 
     if(!playing && launchButtonEl.textContent !== 'GAME OVER') {
-        startGame();
+        // startGame();
     }
 
 
@@ -300,16 +357,71 @@ function windowResized() {
 
 
 //detects when the mouse is pressed
-function mouseClicked() {
+// function mouseClicked() {
 
-    for (const orbState of orbStates) {
-        if (dist(mouseX, mouseY, orbState.x, orbState.y) <= orbState.size) {
-            orbState.activate(); 
-            // warp += 0.005;
-            // setTimeout(() => {
-            //     warp -= 0.005;
-            // }, 1000);
-        }
+//     console.log('PENIS')
+//     if(!playing) {
+//         for (let i = 0; i < 100; i++) {
+            
+//         }
+//     }
+
+//   }
+
+
+// let startLoop = () => {
+
+// };
+
+
+
+// setTimeout(() => {
+//     startLoop();
+// }, 100);
+
+let lastMouseRelease = 0;
+
+
+async function mousePressed() {
+    let mousePress = Date.now();
+
+    for (let i = 0; i < 4; i++) {
+        if(lastMouseRelease > mousePress) {
+            launchButtonEl.textContent = 'HOLD TO LAUNCH';
+            return;
+        };
+        launchButtonEl.textContent ='HOLD';
+
+        await sleep(250);
     }
 
+    startGame();
+
+    // if(mouseIsPressed && !playing) {
+    //     debugger;
+    //     if(!holdStart) {
+    //         holdStart = Date.now();
+    //     } else {
+
+    //         if((Date.now() - holdStart) > 3000) {
+    //             startGame();
+    //             holdStart = null;
+    //         }
+
+    //     }
+    // } else {
+    //     // playing or mouse isn't pressed
+    //     holdStart = null;
+    // }
+}
+
+
+function mouseReleased() {
+    lastMouseRelease = Date.now();
+}
+
+
+
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
   }
