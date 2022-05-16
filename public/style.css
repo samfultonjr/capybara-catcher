@@ -76,6 +76,7 @@ html, body {
     padding: 10px;
     padding-left: 20px;
     user-select: none;
+   
 }
 
 
@@ -165,4 +166,21 @@ html, body {
 
 .game-launch-button-record-mode {
     margin-top: calc(20vh - 200px);
+}
+
+.top-bar-record-mode {
+    height: 180px;
+}
+
+
+
+.game-container-record-mode {
+    height: calc(100% - 300px);
+}
+
+.logo-record-mode {
+    margin: 0 auto;
+    margin-top: 120px;
+    text-align: center;
+    margin-left: calc(50% - 103px);
 }

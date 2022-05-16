@@ -17,6 +17,34 @@ const launchButtonEl = document.querySelector('.game-launch-button');
 const warpHighscoreEl = document.querySelector('.game-warp-highscore');
 
 
+let recording = false;
+
+
+
+
+
+
+  const setRecordMode = () => {
+    launchButtonEl.classList.add('game-launch-button-record-mode');
+    document.querySelector('.top-bar').classList.add('top-bar-record-mode');
+    document.querySelector('.game-container').classList.add('game-container-record-mode');
+    document.querySelector('.logo').classList.add('logo-record-mode');
+  }
+
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const recordParam = urlParams.get('record');
+    if(recordParam === 'true') {
+        recording = true;
+        setRecordMode();
+    }
+  } catch (err) {
+
+  }
+
+
+
 function Star(){
     this.dist = random(width+height);
     this.angle = random(0,2*PI);
@@ -441,13 +469,4 @@ const sleep = (milliseconds) => {
 
 
 
-  try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const recordParam = urlParams.get('record');
-    if(recordParam === 'true') {
-        launchButtonEl.classList.add('game-launch-button-record-mode');
-    }
-  } catch (err) {
-
-  }
 
