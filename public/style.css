@@ -140,7 +140,7 @@ html, body {
     font-family: 'Comfortaa', cursive;
     user-select: none;
     margin-top: 5px;
-    font-weight: 700;
+    font-weight: 800;
     text-align: center;
 }
 
@@ -158,4 +158,11 @@ html, body {
     text-align: center;
     margin-top: calc(50vh - 200px);
     user-select: none;
+}
+
+
+
+
+.game-launch-button-record-mode {
+    margin-top: calc(20vh - 200px);
 }

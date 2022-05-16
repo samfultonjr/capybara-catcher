@@ -3,6 +3,7 @@ let stars = [];
 
 let warp = 0.01;
 
+let started = false;
 let playing = false;
 
 let roundStartTime = 0;
@@ -258,7 +259,8 @@ function draw() {
 
 
 const startGame = () => {
-
+    if(started) return;
+    started = true;
     launchButtonEl.textContent = 'LETTING GO WILL END GAME';
 
     setTimeout(() => {
@@ -273,6 +275,9 @@ const startGame = () => {
     setTimeout(() => {
         launchButtonEl.textContent = 'OR DIE';
     }, 5500);
+
+
+    // THIS TIMEOUT NEEDS TO BE REMOVED IF GAME STOPPED, SHOULD NOT BE TIMEOUTS
 
     setTimeout(() => {
         launchButtonEl.textContent = 'HOLD TO LAUNCH';
@@ -302,6 +307,7 @@ const endGame = () => {
         orbState.rounds = 0;
     }
     playing = false;
+    started = false;
 
     launchButtonEl.textContent = 'GAME OVER';
     setTimeout(() => {
@@ -431,3 +437,17 @@ function mouseReleased() {
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
   }
+
+
+
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const recordParam = urlParams.get('record');
+    if(recordParam === 'true') {
+        launchButtonEl.classList.add('game-launch-button-record-mode');
+    }
+  } catch (err) {
+
+  }
+
