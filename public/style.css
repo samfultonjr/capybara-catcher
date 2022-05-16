@@ -93,10 +93,11 @@ html, body {
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     /* width: 100%; */
-    height: calc(100% - 100px);
-    border-bottom: 2px solid var(--accent);
+    height: calc(100% - 50px);
+    margin-top: 20px;
     border-top: 2px solid var(--accent);
     border-radius: 5px;
+    user-select: none;
 }
 
 
@@ -155,5 +156,6 @@ html, body {
     margin-top: 10px;
     font-weight: 700;
     text-align: center;
-    margin-top: 200px;
+    margin-top: calc(50vh - 200px);
+    user-select: none;
 }

@@ -91,7 +91,7 @@ class Orb {
         this.activationDate = Date.now();
         this.size = this.startSize;
         this.startX = Math.random() * width;
-        this.startY = (Math.random() * (height - 100));
+        this.startY = (Math.random() * (height - 75));
         // rounds++;
         warp = JSON.parse((warp + 0.01).toFixed(2));
         this.adjustedLife = this.adjustedLife * 0.98;
@@ -141,7 +141,7 @@ let orbStates = [
 
 
 function setup() {
-createCanvas(windowWidth, windowHeight - 100);
+createCanvas(windowWidth, windowHeight - 75);
   background("#000");
 
   for(let i=0;i<numStars;i++){
@@ -182,7 +182,7 @@ function draw() {
     for (const vacCircle of vacCircles) {
         r = random(255); // r is a random number between 0 - 255
         g = random(100,200); // g is a random number betwen 100 - 200
-        b = random(100); // b is a random number between 0 - 100
+        b = random(100); // b is a random number between 0 - 75
         a = random(200,255); // a is a random number between 200 - 255
         
         noStroke();
@@ -349,7 +349,7 @@ gameContainerEl.addEventListener('click', () => {
 
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight - 100);
+    resizeCanvas(windowWidth, windowHeight - 75);
     background(0);
 }
 
@@ -383,19 +383,25 @@ let lastMouseRelease = 0;
 
 
 async function mousePressed() {
-    let mousePress = Date.now();
 
-    for (let i = 0; i < 4; i++) {
-        if(lastMouseRelease > mousePress) {
-            launchButtonEl.textContent = 'HOLD TO LAUNCH';
-            return;
-        };
-        launchButtonEl.textContent ='HOLD';
+    if(!playing) {
+        let mousePress = Date.now();
 
-        await sleep(250);
+
+        for (let i = 0; i < 5; i++) {
+            if(lastMouseRelease > mousePress) {
+                // launchButtonEl.textContent = 'HOLD TO LAUNCH';
+                return;
+            };
+            // launchButtonEl.textContent ='HOLD';
+    
+            await sleep(100);
+        }
+    
+        startGame();
+    
     }
 
-    startGame();
 
     // if(mouseIsPressed && !playing) {
     //     debugger;
