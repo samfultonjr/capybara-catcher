@@ -29,6 +29,8 @@ let recording = false;
     document.querySelector('.top-bar').classList.add('top-bar-record-mode');
     document.querySelector('.game-container').classList.add('game-container-record-mode');
     document.querySelector('.logo').classList.add('logo-record-mode');
+    document.querySelector('.game-warp').classList.add('game-warp-record-mode');
+    document.querySelector('.game-watermark').classList.add('game-watermark-record-mode');
   }
 
 
@@ -318,7 +320,7 @@ const startGame = () => {
             orbState.adjustedLife = orbState.totalLife;
         }
         warp = 0.1;
-        launchButtonEl.hidden = true;
+        launchButtonEl.textContent = '';
         
     }, 6000);
 
@@ -327,7 +329,7 @@ const startGame = () => {
 
 
 const endGame = () => {
-    launchButtonEl.hidden = false;
+    // launchButtonEl.textContent = ''
     setHighscore(JSON.parse((warp * 100).toFixed(0)));
     warp = 0.01;
     for (const orbState of orbStates) {

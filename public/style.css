@@ -159,28 +159,55 @@ html, body {
     text-align: center;
     margin-top: calc(50vh - 200px);
     user-select: none;
+    height: 150px;
 }
 
 
 
 
 .game-launch-button-record-mode {
-    margin-top: calc(20vh - 200px);
+    margin-top: 30px;
 }
 
 .top-bar-record-mode {
-    height: 180px;
+    /* height: 180px; */
 }
 
 
 
 .game-container-record-mode {
-    height: calc(100% - 300px);
+    /* height: calc(100% - 300px); */
 }
 
 .logo-record-mode {
     margin: 0 auto;
-    margin-top: 120px;
+    /* margin-top: 120px; */
     text-align: center;
-    margin-left: calc(50% - 103px);
+    /* margin-left: calc(50% - 103px); */
+    visibility: hidden;
+}
+
+
+.game-watermark {
+    text-align: center;
+    margin-top: 80%;
+    color: var(--white);
+    font-family: 'Comfortaa', cursive;
+    font-size: 2.5rem;
+    position: absolute;
+    bottom: 2;
+    text-align: center;
+    left: calc(50% - 134px);
+    visibility: hidden;
+}
+
+
+.game-watermark-record-mode {
+    visibility: visible;
+}
+
+
+
+.game-warp-record-mode {
+    margin-top: 120px;
 }
