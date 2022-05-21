@@ -21,6 +21,8 @@ const warpHighscoreEl = document.querySelector('.game-warp-highscore');
 
 let recording = false;
 
+let img;
+
 
 
 
@@ -202,6 +204,8 @@ createCanvas(windowWidth, windowHeight - 75);
   for(let i=0;i<numStars;i++){
     stars[i] = new Star();
   }
+
+  img = loadImage('resources/images/star.png');
 }
 
 
@@ -222,9 +226,9 @@ let holdStart;
 
 function draw() {
     background(0);
-    if(Date.now() - lastHit < 100) {
-        background('#080114');
-    }
+    // if(Date.now() - lastHit < 100) {
+    //     background('#080114');
+    // }
   
   
 
@@ -284,7 +288,8 @@ function draw() {
             
             fill(orbState.color);
             
-            ellipse(orbState.x, orbState.y, orbState.size);
+            // ellipse(orbState.x, orbState.y, orbState.size);
+            image(img, orbState.x, orbState.y, orbState.size,  orbState.size);
             
 
             if (dist(mouseX, mouseY, orbState.x, orbState.y) <= orbState.size) {
