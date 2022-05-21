@@ -8,6 +8,8 @@ let playing = false;
 
 let roundStartTime = 0;
 
+let lastHit = 0;
+
 let storage = window.localStorage;
 
 const gameContainerEl = document.querySelector('.game-container');
@@ -30,6 +32,7 @@ let recording = false;
     document.querySelector('.game-container').classList.add('game-container-record-mode');
     document.querySelector('.logo').classList.add('logo-record-mode');
     document.querySelector('.game-warp').classList.add('game-warp-record-mode');
+    document.querySelector('.game-warp-highscore').classList.add('game-warp-highscore-record-mode');
     document.querySelector('.game-watermark').classList.add('game-watermark-record-mode');
   }
 
@@ -52,7 +55,9 @@ function Star(){
     this.angle = random(0,2*PI);
     this.speed = random(0*warp,0.3*warp);
     this.bright = 0;
-    this.weight = random(1,2);
+    this.weight = random(2,6);
+
+    this.color;
     
     this.display = function() {
       push();
@@ -75,15 +80,25 @@ function Star(){
         this.dist = random(width/50,width);
         this.speed = random(0*warp,0.3*warp);
         this.bright = 0
-        this.weight = random(1,2)
+        this.weight = random(2,6);
       }
   
     }
     
     this.colormap = function(b){
-      colorMode(HSB);
-      sat = map(warp,1,7,0,100);
-      return color(200,sat,b);
+        if(!this.color) {
+            let random = Math.random();
+            if(random > 0.1) {
+                this.color = '#fff';
+            } else {
+                this.color = '#de76f8';
+            }
+        }
+    
+    return this.color;
+    //   colorMode(HSB);
+    //   sat = map(warp,1,7,0,100);
+    //   return color(200,sat,b);
     
     }
   }
@@ -101,10 +116,12 @@ class Orb {
     
     adjustedLife = 0;
 
-    startSize = 75;
+    startSize = JSON.parse(document.documentElement.clientWidth * 0.15);
     size = 0;
 
     rounds = 0;
+
+    color = '#c300ff';
 
 
     totalScalar = 30;
@@ -127,6 +144,13 @@ class Orb {
         warp = JSON.parse((warp + 0.01).toFixed(2));
         this.adjustedLife = this.adjustedLife * 0.98;
         // this.scalar = this.scalar * 0.98;
+
+        let random = Math.random();
+        if(random > 0.8) {
+            this.color = '#c300ff';
+        } else {
+            this.color = '#9366e9';
+        }
     }
 
 
@@ -194,8 +218,15 @@ let vacCircles = [
 let holdStart;
 
 
+
+
 function draw() {
     background(0);
+    if(Date.now() - lastHit < 100) {
+        background('#080114');
+    }
+  
+  
 
     warpEl.textContent = `WARP ${(warp * 100).toFixed(0)}`;
     warpHighscoreEl.textContent = `HIGHSCORE: ${getHighscore()}`
@@ -210,15 +241,21 @@ function draw() {
    
     }
 
+    let i = 0;
+
     for (const vacCircle of vacCircles) {
+       
         r = random(255); // r is a random number between 0 - 255
         g = random(100,200); // g is a random number betwen 100 - 200
         b = random(100); // b is a random number between 0 - 75
-        a = random(200,255); // a is a random number between 200 - 255
+        // a = random(200,255); // a is a random number between 200 - 255
+
+        a = (i / vacCircles.length) * 255;
         
         noStroke();
         fill(r, g, b, a);
-        circle(vacCircle.x, vacCircle.y, 15);
+        circle(vacCircle.x, vacCircle.y, 20);
+        i++;
     }
 
     if(!playing) {
@@ -236,18 +273,23 @@ function draw() {
             
   
             
-            let random = Math.random();
-            if(random > 0.6) {
-                fill('#b898f3');
-            } else {
-                fill('#7D6EE7');
-            }
+            // let random = Math.random();
+            // if(random > 0.6) {
+            //     fill('#b898f3');
+            // } else {
+            //     fill('#7D6EE7');
+            // }
+
+            // fill('#c300ff');
             
+            fill(orbState.color);
             
             ellipse(orbState.x, orbState.y, orbState.size);
             
 
             if (dist(mouseX, mouseY, orbState.x, orbState.y) <= orbState.size) {
+                // got!
+                lastHit = Date.now();
                 orbState.activate(); 
             }
             
@@ -331,6 +373,7 @@ const startGame = () => {
 const endGame = () => {
     // launchButtonEl.textContent = ''
     setHighscore(JSON.parse((warp * 100).toFixed(0)));
+    launchButtonEl.textContent = `GAME OVER \nSCORE: ${JSON.parse((warp * 100).toFixed(0))}`;
     warp = 0.01;
     for (const orbState of orbStates) {
         orbState.active = false;
@@ -339,10 +382,10 @@ const endGame = () => {
     playing = false;
     started = false;
 
-    launchButtonEl.textContent = 'GAME OVER';
+
     setTimeout(() => {
         launchButtonEl.textContent = 'HOLD TO LAUNCH';
-    }, 2000);
+    }, 3000);
 }
 
 

@@ -16,7 +16,9 @@
     /* --accent: #fd8bb7; */
     --error: #ff5656;
 
-    --reddit-accent: #FF5700;
+    --reddit-accent: #080114;
+
+    --blue-accent: #3a9b52;
 
     --accent: #b898f3;
     
@@ -167,6 +169,7 @@ html, body {
 
 .game-launch-button-record-mode {
     margin-top: 30px;
+    font-size: 1.3rem;
 }
 
 .top-bar-record-mode {
@@ -190,24 +193,34 @@ html, body {
 
 .game-watermark {
     text-align: center;
-    margin-top: 80%;
+    margin-top: 70%;
     color: var(--white);
     font-family: 'Comfortaa', cursive;
-    font-size: 2.5rem;
+    width: 250px;
+    font-size: 1rem;
     position: absolute;
     bottom: 2;
     text-align: center;
-    left: calc(50% - 134px);
+    left: calc(50% - 125px);
     visibility: hidden;
 }
 
 
 .game-watermark-record-mode {
     visibility: visible;
+
 }
 
 
 
 .game-warp-record-mode {
     margin-top: 120px;
+    font-size: 1.2rem;
+}
+
+
+.game-warp-highscore-record-mode {
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-size: 0.7rem;
 }
