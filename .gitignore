@@ -11,7 +11,7 @@ firebase*
 # Firebase cache
 .firebase/
 /functions
-
+.firebaserc
 /.vscode
 firebase.json
 firestore.indexes.json
