@@ -205,7 +205,7 @@ createCanvas(windowWidth, windowHeight - 75);
     stars[i] = new Star();
   }
 
-  img = loadImage('resources/gifs/spinny-capy.gif');
+  img = loadImage('/public/resources/gifs/spinny-capy.gif');
 }
 
 

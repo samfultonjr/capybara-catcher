@@ -20,7 +20,7 @@
 
     --blue-accent: #3a9b52;
 
-    --accent: #b898f3;
+    --accent: #52f9c4;
     
     --accent-backup: #b898f3;
 
@@ -73,8 +73,9 @@ html, body {
 .logo {
     float: left;
     font-size: 1.65rem;
-    font-family: 'Comfortaa', cursive;
-    font-weight: 600;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 1.3px;
+    font-weight: 500;
     padding: 10px;
     padding-left: 20px;
     user-select: none;
