@@ -57,7 +57,7 @@ function Star(){
     this.angle = random(0,2*PI);
     this.speed = random(0*warp,0.3*warp);
     this.bright = 0;
-    this.weight = random(2,6);
+    this.weight = random(1,3);
 
     this.color;
     
@@ -82,7 +82,7 @@ function Star(){
         this.dist = random(width/50,width);
         this.speed = random(0*warp,0.3*warp);
         this.bright = 0
-        this.weight = random(2,6);
+        this.weight = random(1,3);
       }
   
     }
@@ -118,7 +118,7 @@ class Orb {
     
     adjustedLife = 0;
 
-    startSize = JSON.parse(document.documentElement.clientWidth * 0.15);
+    startSize = JSON.parse(document.documentElement.clientWidth * 0.2) > 150 ? JSON.parse(document.documentElement.clientWidth * 0.2) : 150;
     size = 0;
 
     rounds = 0;
@@ -140,7 +140,7 @@ class Orb {
         this.active = true;
         this.activationDate = Date.now();
         this.size = this.startSize;
-        this.startX = Math.random() * width;
+        this.startX = Math.random() * (width * 0.9);
         this.startY = (Math.random() * (height - 75));
         // rounds++;
         warp = JSON.parse((warp + 0.01).toFixed(2));
@@ -205,7 +205,7 @@ createCanvas(windowWidth, windowHeight - 75);
     stars[i] = new Star();
   }
 
-  img = loadImage('resources/images/star.png');
+  img = loadImage('resources/gifs/spinny-capy.gif');
 }
 
 
@@ -341,12 +341,12 @@ const startGame = () => {
     launchButtonEl.textContent = 'LETTING GO WILL END GAME';
 
     setTimeout(() => {
-        launchButtonEl.textContent = 'YOU ARE NOW A SPACE SNAKE';
+        launchButtonEl.textContent = 'A SHUTTLE OF CAPYS EXPLODED';
     }, 2000);
 
 
     setTimeout(() => {
-        launchButtonEl.textContent = 'GRAB SPACE FOOD';
+        launchButtonEl.textContent = 'SAVE EVERY CAPY';
     }, 3500);
 
     setTimeout(() => {

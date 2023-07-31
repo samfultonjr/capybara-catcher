@@ -6,9 +6,16 @@ yarn-debug.log*
 yarn-error.log*
 firebase-debug.log*
 firebase-debug.*.log*
-
+firebase*
+*functions*
 # Firebase cache
 .firebase/
+/functions
+
+/.vscode
+firebase.json
+firestore.indexes.json
+firestore.rules
 
 # Firebase config
 
